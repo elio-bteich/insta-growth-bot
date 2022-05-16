@@ -11,6 +11,7 @@ it's a selenium automation or not. So after changing the name of this variable t
 same length, selenium is not detected anymore. 
 """
 
+# disabled some webdriver options to prevent selenium detection
 options = webdriver.ChromeOptions()
 options.add_argument('--disable-blink-features=AutomationControlled')
 options.add_argument('--disable-extensions')
@@ -18,7 +19,6 @@ options.add_argument('--profile-directory=Default')
 options.add_argument("--disable-plugins-discovery")
 options.add_argument("--start-maximized")
 driver = webdriver.Chrome(options=options)
-
 driver.execute_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
 
 
@@ -61,18 +61,31 @@ def likes_to_posts_in_location():
     sleep(2)
     driver.find_element(by=By.LINK_TEXT, value=country).click()
     sleep(2)
+    driver.find_element(by=By.CSS_SELECTOR, value="div.vLP4P").click()
+    sleep(2)
     driver.find_element(by=By.LINK_TEXT, value=city).click()
     sleep(2)
     driver.find_element(by=By.LINK_TEXT, value=location).click()
     sleep(45)
     driver.find_elements(by=By.CSS_SELECTOR, value="div.v1Nh3.kIKUG._bz0w")[1].click()
-    while True:
+    counter = 0
+    while counter <= 210:
         sleep(random.randint(4, 7))
         driver.find_elements(by=By.CSS_SELECTOR, value=".wpO6b")[5].click() # like button
         sleep(random.randint(1, 2))
         driver.find_elements(by=By.CSS_SELECTOR, value=".wpO6b")[3].click() # next button
+        counter += 1
+
+
+print("")
+print("888888   888    88   8888888  88888888  88888888          8888888   8888888     88888    88     88  88888888  88    88")
+print("  88     88 88  88   88          88     88    88          88        88    88   88   88   88     88     88     88    88")
+print("  88     88  88 88   8888888     88     88 88 88          88  888   88 8 88    88   88   88  8  88     88     88 88 88")
+print("  88     88   8888        88     88     88    88          88    8   88    88   88   88   88 8 8 88     88     88    88")
+print("888888   88    888   8888888     88     88    88          8888888   88     88   88888     88   88      88     88    88")
+print("")
 
 
 login()
-random_follows_to_page_followers()
+#random_follows_to_page_followers()
 likes_to_posts_in_location()
